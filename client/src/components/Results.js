@@ -15,9 +15,9 @@ const Results = props =>
         </span>
         <span className="btn-group pull-right">
           <a href={props.url} target="_blank">
-            <button className="btn btn-default ">View Article</button>
+            <button className="btn btn-white ">View Article</button>
           </a>
-          <button className="btn btn-primary" onClick={() => props.handleSaveButton(props._id)}>Save</button>
+          <button className="btn btn-success" onClick={() => props.handleSaveButton(props._id)}>Save</button>
         </span>
       </h4>
       <p>Date Published: {props.date}</p>

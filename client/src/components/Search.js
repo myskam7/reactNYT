@@ -26,7 +26,7 @@ const Search = props =>
                 <label htmlFor="end-year">End Year</label>
                 <input onChange={props.handleEndYearChange} type="text" className="form-control" id="end-year" />
               </div>
-              <button onClick={props.handleFormSubmit} type="submit" className="btn btn-primary">Submit</button>
+              <button onClick={props.handleFormSubmit} type="submit" className="btn btn-success pull-right">Submit</button>
             </form>
           </div>
         </div>
