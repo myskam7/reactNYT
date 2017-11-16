@@ -46,7 +46,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 // Require Schemas
-const Article = require("./model");
+const Article = require("./server/model");
 
 // Create Instance of Express
 const app = express();
@@ -67,10 +67,10 @@ app.use((req, res, next) => {
   next();
 });
 // Serve files created by create-react-app.
-app.use(express.static("../client/build"));
+app.use(express.static("/client/build"));
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/reactNYT";
 
 mongoose.connect(MONGODB_URI);
 
