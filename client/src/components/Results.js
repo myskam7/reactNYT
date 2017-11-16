@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // Include our API for API calls
-import API from "../../utils/API";
+import API from "../utils/API";
 
 // Results Component Declaration
 class Results extends Component {

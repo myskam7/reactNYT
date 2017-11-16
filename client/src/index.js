@@ -1,9 +1,3 @@
-// import React from "react";
-// import ReactDOM from "react-dom";
-// import App from "./App";
-
-// ReactDOM.render(<App />, document.getElementById("root"));
-
 
 // // Include the Main React Dependencies
 import ReactDOM from "react-dom";
