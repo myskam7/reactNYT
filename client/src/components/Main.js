@@ -1,85 +1,15 @@
-// Include React as a dependency
-// import React, { Component } from 'react'
-// // Including the Link component from React Router to navigate within our application without full page reloads
-// // https://github.com/ReactTraining/react-router/blob/master/docs/API.md#link
-// import { Link } from "react-router";
-
-// // Create the Main component
-// class Main extends Component {
-
-//   render() {
-
-//     return (
-//       // We can only render a single div. So we need to group everything inside of this main-container one
-//       <div className="main-container">
-//         <div className="container">
-//           {/* Navbar */}
-//           <nav className="navbar navbar-default">
-//             <div className="container-fluid">
-//               <div className="navbar-header">
-//                 <button
-//                   type="button"
-//                   className="navbar-toggle"
-//                   data-toggle="collapse"
-//                   data-target=".navbar-ex1-collapse"
-//                 >
-//                   <span className="sr-only">Toggle navigation</span>
-//                   <span className="icon-bar"></span>
-//                   <span className="icon-bar"></span>
-//                   <span className="icon-bar"></span>
-//                 </button>
-//                 <Link className="navbar-brand" to="/">NYT-React</Link>
-//               </div>
-
-//               <div className="collapse navbar-collapse navbar-ex1-collapse">
-//                 <ul className="nav navbar-nav navbar-right">
-//                   {/* Using <Link> in place of <a> and "to" in place of "href" */}
-//                   <li><Link to="/search">Search</Link></li>
-//                   <li><Link to="/saved">Saved Articles</Link></li>
-//                 </ul>
-//               </div>
-//             </div>
-//           </nav>
-
-//           {/* Jumbotron */}
-//           <div className="jumbotron">
-//             <h2 className="text-center"><strong>(ReactJS) New York Times Article Scrubber</strong></h2>
-//             <h3 className="text-center">Search for and save articles of interest.</h3>
-//           </div>
-
-
-//           {/* Here we will deploy the sub components (Search or Saved */}
-//           {/* These sub-components are getting passed as this.props.children */}
-//           {this.props.children}
-
-//           <footer>
-//             <hr />
-//             <p className="pull-right">
-//               <i className="fa fa-github" aria-hidden="true"></i>
-//               Proudly built using React.js
-//             </p>
-//           </footer>
-//         </div>
-//       </div>
-//     );
-//   }
-// };
-
-// // Export the module back to the route
-// export default Main;
-
 import React, { Component } from "react";
 import Saved from "./Saved";
 import Search from "./Search";
 import Results from "./Results";
-import API from "../utils/API";
+import API from "../utils/api";
 
 class Main extends Component {
 
   state = {
-    term: "",
-    start: "",
-    end: "",
+    topic: "",
+    startYear: "",
+    endYear: "",
     articles: [],
     saved: []
   };
@@ -91,7 +21,7 @@ class Main extends Component {
 
   // Method for getting saved articles (all articles) from the db
   getSavedArticles = () => {
-    API.getSaved()
+    API.getArticle()
       .then((res) => {
         this.setState({ saved: res.data });
       });
@@ -127,29 +57,29 @@ class Main extends Component {
     ));
   }
 
-  // Keep track of what user types into term input so that input can be grabbed later
+  // Keep track of what user types into topic input so that input can be grabbed later
   handleTopicChange = (event) => {
-    this.setState({ term: event.target.value });
+    this.setState({ topic: event.target.value });
   }
 
-  // Keep track of what user types into term input so that input can be grabbed later
+  // Keep track of what user types into topic input so that input can be grabbed later
   handleStartYearChange = (event) => {
-    this.setState({ start: event.target.value });
+    this.setState({ startYear: event.target.value });
   }
 
-  // Keep track of what user types into term input so that input can be grabbed later
+  // Keep track of what user types into topic input so that input can be grabbed later
   handleEndYearChange = (event) => {
-    this.setState({ end: event.target.value });
+    this.setState({ endYear: event.target.value });
   }
 
   // When the search form submits, perform NYT api search with user input
   handleFormSubmit = (event) => {
     event.preventDefault();
     console.log("Getting NYT Articles");
-    console.log("this.state.term: ", this.state.term);
-    console.log("this.state.start: ", this.state.start);
-    console.log("this.state.end: ", this.state.end);
-    API.runQuery(this.state.term, this.state.start, this.state.end)
+    console.log("this.state.topic: ", this.state.topic);
+    console.log("this.state.startYear: ", this.state.startYear);
+    console.log("this.state.endYear: ", this.state.endYear);
+    API.searchNYT(this.state.topic, this.state.startYear, this.state.endYear)
       .then((res) => {
         this.setState({ articles: res.data.response.docs });
         console.log("this.state.articles: ", this.state.articles);
@@ -183,8 +113,8 @@ class Main extends Component {
           </div>
           {/* Search Form and Results Section */}
           <Search
-            handletermChange={this.handleTopicChange}
-            handleStartYearChange={this.handlestartChange}
+            handleTopicChange={this.handleTopicChange}
+            handleStartYearChange={this.handleStartYearChange}
             handleEndYearChange={this.handleEndYearChange}
             handleFormSubmit={this.handleFormSubmit}
             renderArticles={this.renderArticles}

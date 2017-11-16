@@ -1,21 +1,13 @@
-
-
-
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Articles from "./pages/Articles";
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import './App.css';
+import Main from "./components/Main";
 
 const App = () =>
   <Router>
     <div>
-      
-      <Switch>
-        <Route exact path="/" component={Articles} />
-        <Route exact path="/result" component={Articles} />
-       
-      </Switch>
+      <Route path="/" component={Main} />
     </div>
   </Router>;
 
-  export default App;
+export default App;

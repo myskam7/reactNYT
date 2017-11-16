@@ -1,53 +1,25 @@
-      // Include the Axios library for HTTP requests
 import axios from "axios";
 
-
-const API = {
+const api = {
   // Query NYT API
-  runQuery: function(term, start, end) {
-    const APIKey = "27190efe58524369b384481d5de1eec2";
+  searchNYT: function(topic, startYear, endYear) {
+    const authKey = "27190efe58524369b384481d5de1eec2";
     const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-    APIKey + "&q=" + term + "&begin_date=" + start + "0101&end_date=" + end + "0101";
-    return axios.get(queryURL)
-    .then(function(results) {
-            console.log("Axios Results", results.data.response);
-            return results.data.response;
-          });
+    authKey + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+    return axios.get(queryURL);
   },
-  // This will return any saved articles from our database
-  getSaved: function() {
-    return axios.get("/api/saved")
-      .then(function(results) {
-        console.log("axios results", results);
-        return results;
-      });
+  // Retrieves saved articles from the db
+  getArticle: function() {
+    return axios.get("/api/saved");
   },
-  // This will save new articles to our database
-  postSaved: function(title, date, url) {
-    var newArticle = { title: title, date: date, url: url };
-    console.log('postSaved', title)
-    return axios.post("/api/saved", newArticle)
-      .then(function(response) {
-        console.log("axios results", response.data._id);
-        return response.data._id;
-      });
+  // Saves a new article to the db
+  saveArticle: function(articleObj) {
+    return axios.post("/api/saved", articleObj);
   },
-  // This will remove saved articles from our database
-  deleteSaved: function(title, data, url) {
-    return axios.delete("/api/saved", {
-      params: {
-        "title": title,
-        "data": data,
-        "url": url
-      }
-    })
-    .then(function(results) {
-      console.log("axios results", results);
-      return results;
-    });
+  // Deletes an article from the db
+  deleteArticle: function(id) {
+    return axios.delete(`/api/saved/${id}`);
   }
 };
 
-
-// We export the API function
-export default API;
+export default api;
