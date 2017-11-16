@@ -70,21 +70,21 @@ app.use((req, res, next) => {
 app.use(express.static("../client/build"));
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-// const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytreact";
 
-// mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI);
 
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 mongoose.connect("mongodb://heroku_gnzk5747:4d2121nhgnfbdl1pfirsdepk9n@ds125262.mlab.com:25262/heroku_gnzk5747");
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/reactNYT",
-  {
-    useMongoClient: false
-  }
-);
+// mongoose.connect(
+//   process.env.MONGODB_URI || "mongodb://localhost/reactNYT",
+//   {
+//     useMongoClient: false
+//   }
+// );
 
 const db = mongoose.connection;
 
