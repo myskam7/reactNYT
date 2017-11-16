@@ -13,7 +13,7 @@ const Results = props =>
         <span>
           <em>{props.title}</em>
         </span>
-        <span className="btn-group pull-right">
+        <span className="btn-group center-block">
           <a href={props.url} target="_blank">
             <button className="btn btn-white ">View Article</button>
           </a>
